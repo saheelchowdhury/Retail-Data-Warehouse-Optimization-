@@ -5,4 +5,4 @@ Schema of the database :
 
 <img width="468" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/6d5c674c-0530-48ec-90e7-4ff5ef007584">
 
-Code file to create the database warehouse uploaded separately. 
+Code file to create the database warehouse uploaded separately. - retail_analysis.sql
