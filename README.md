@@ -68,7 +68,74 @@ FROM ( SELECT Country, ROUND(SUM(subtotal_on_Federal_Shipping),2) AS subtotal_on
 ```
 <img width="410" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/9e50287e-b567-4dfb-b45c-74647f0454a7">
 
+d. Revenue structure in different countries
 
+Simple overview of the existing revenue streams and their numbers for region wise strategy focus. (Which products to focus on X country?) 
+
+```
+
+SELECT Country, ROUND(SUM(subtotal_in_Beverages),2) AS total_Beverages, 
+                ROUND(SUM(subtotal_in_Condiments),2) AS total_Condiments,
+                ROUND(SUM(subtotal_in_Confections),2) AS total_Confections,
+                ROUND(SUM(subtotal_in_Dairy_Products),2) AS total_Products,
+                ROUND(SUM(subtotal_in_Grains_Cereals),2) AS total_Cereals,
+                ROUND(SUM(subtotal_in_Meat_Poultry),2) AS total_Poultry, 
+                ROUND(SUM(subtotal_in_Produce),2) AS total_Produce,
+                ROUND(SUM(subtotal_in_Seafood),2) AS total_Seafood
+FROM datawarehouse
+GROUP BY country WITH ROLLUP
+ORDER BY country;
+
+```
+<img width="322" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/fd09411c-de85-44bf-b440-c6a30db5e8cb">
+
+e. Number of orders in different quarters
+
+Overview of order count based on different countries accross different quarters. This information is useful to predict future order trends based on different quarters. 
+
+```
+
+SELECT Country, SUM(NumOrder_1996Q3) AS total_NumOrder_1996Q3, 
+                SUM(NumOrder_1996Q4) AS total_NumOrder_1996Q4,
+                SUM(NumOrder_1997Q1) AS total_NumOrder_1997Q1,
+                SUM(NumOrder_1997Q2) AS total_NumOrder_1997Q2,
+                SUM(NumOrder_1997Q3) AS total_NumOrder_1997Q3,
+                SUM(NumOrder_1997Q4) AS total_NumOrder_1997Q4,
+                SUM(NumOrder_1998Q1) AS total_NumOrder_1998Q1,
+                SUM(NumOrder_1998Q2) AS total_NumOrder_1998Q2,
+                SUM(NumOrder_1996Q3) + SUM(NumOrder_1996Q4) + SUM(NumOrder_1997Q1) + SUM(NumOrder_1997Q2) + SUM(NumOrder_1997Q3) + SUM(NumOrder_1997Q4) + SUM(NumOrder_1998Q1) + SUM(NumOrder_1998Q2) AS total_order
+FROM (SELECT CustomerID, Country,
+			 CASE WHEN NumOrder_1996Q3 IS NULL THEN 0 ELSE NumOrder_1996Q3 END AS NumOrder_1996Q3,
+			 CASE WHEN NumOrder_1996Q4 IS NULL THEN 0 ELSE NumOrder_1996Q4 END AS NumOrder_1996Q4,
+			 CASE WHEN NumOrder_1997Q1 IS NULL THEN 0 ELSE NumOrder_1997Q1 END AS NumOrder_1997Q1,
+			 CASE WHEN NumOrder_1997Q2 IS NULL THEN 0 ELSE NumOrder_1997Q2 END AS NumOrder_1997Q2,
+			 CASE WHEN NumOrder_1997Q3 IS NULL THEN 0 ELSE NumOrder_1997Q3 END AS NumOrder_1997Q3,
+			 CASE WHEN NumOrder_1997Q4 IS NULL THEN 0 ELSE NumOrder_1997Q4 END AS NumOrder_1997Q4,
+			 CASE WHEN NumOrder_1998Q1 IS NULL THEN 0 ELSE NumOrder_1998Q1 END AS NumOrder_1998Q1,
+			 CASE WHEN NumOrder_1998Q2 IS NULL THEN 0 ELSE NumOrder_1998Q2 END AS NumOrder_1998Q2
+      FROM datawarehouse) AS sub
+GROUP BY country;
+
+```
+
+<img width="444" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/03971ff7-033c-49b6-a62b-1eeafbff5594">
+
+h. The rank of subtotal and average subtotal on order
+
+Ranking of a customer's subtotal spending can differ from their ranking of average total spending per order. For example, SIMOB's subtotal is ranked as 23, but average subtotal per order is ranked as 6. Meaning, if the focus is shifted more towards getting SIMOB to order more, it will be beneficial because of large order amount. 
+
+```
+SELECT d.CustomerID, Total_orders, d.subtotal, ROUND((d.subtotal / d.Total_orders),2) AS per_revenue_on_order,
+       ROW_NUMBER() OVER(ORDER BY ROUND((d.subtotal / d.Total_orders),2) DESC) AS rank_on_avg_revenue_on_order,
+       sub1.rank_on_subtotal
+FROM datawarehouse AS d
+JOIN ( SELECT CustomerID, subtotal,
+       RANK() OVER(ORDER BY subtotal DESC) AS rank_on_subtotal
+       FROM datawarehouse) AS sub1
+USING (CustomerID);
+
+```
+![image](https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/34d2ec5d-c122-4bbc-acce-65f940fa7937)
 
 
 
