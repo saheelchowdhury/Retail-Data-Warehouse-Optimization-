@@ -139,4 +139,49 @@ USING (CustomerID);
 
 ------ Visualizing the dataset using Tableau ----------
 
+I. Subtotal by different countries : 
+
+The visualization shows the subtotal contributed by different countries. Countries with darker green are the countries which buying more products. Great overview to decide where to expland, where to put more effort, and getting an overall high level understanding of target market. 
+
+<img width="500" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/a7174185-9933-4796-a1b5-5f0c28d71e33">
+
+II. Number of customers in different countries
+
+It gives an idea about the subtotal for different shippers by country. This information will be useful when considering the risk distribution. As can be seen in Norway, lion’s share of the total heavily relies on United Package. Although there may be few shippers to choose from, it should be noted that this kind of structure will be a huge risk if, for some reason, United Package is unable to perform its duties. 
+
+<img width="500" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/80ea94df-5303-442a-96b6-569543f4d2b3">
+
+
+III. Subtotal of different product categories on different countries
+
+Through the information, the market preference based on product type can be learned. This information will be useful when deciding what kinds of products to promote by countries. By properly assessing the market preference, it is possible to offer product bundles to attract & retain customers.
+
+Grain cereal market distribution 
+
+<img width="400" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/3119c44b-d9d6-420c-8f15-e42c2df065b6">
+
+IV. Subtotal against discount visualized 
+
+This shows the difference between the subtotal and the discount provided to the customers. Ideally, bigger discounts are encouraged for customers who bring in a bigger subtotal. In the graph, it can also be noticed that there are customers who don't bring much value against the discount provided. 
+
+<img width="500" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/33253b5e-18d5-4de7-aa64-6cbc9f9bf6fb">
+
+V. Dashboard overview 
+
+<img width="600" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/28dcebf0-0553-419a-882a-6fa30f3f83dd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
