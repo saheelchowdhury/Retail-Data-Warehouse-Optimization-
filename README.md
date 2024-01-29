@@ -135,8 +135,8 @@ JOIN ( SELECT CustomerID, subtotal,
 USING (CustomerID);
 
 ```
-![image](https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/34d2ec5d-c122-4bbc-acce-65f940fa7937)
+<img width="443" alt="image" src="https://github.com/saheelchowdhury/Retail-Data-Warehouse-Optimization-/assets/153671296/c0fea412-2de9-4f4e-aacb-4a2803dfa8ae">
 
-
+------ Visualizing the dataset using Tableau ----------
 
 
